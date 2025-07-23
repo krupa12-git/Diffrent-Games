@@ -1,0 +1,39 @@
+import random
+
+ladders = {3: 22, 5: 8, 11: 26, 20: 29}
+snakes = {27: 1, 21: 9, 17: 4, 19: 7}
+
+def roll_dice():
+    return random.randint(1, 6)
+
+def move(player, pos):
+    dice = roll_dice()
+    print(f"{player} rolled a {dice}")
+    pos += dice
+    if pos in ladders:
+        print(f"Ladder! {player} climbs from {pos} to {ladders[pos]}")
+        pos = ladders[pos]
+    elif pos in snakes:
+        print(f"Snake! {player} slides from {pos} to {snakes[pos]}")
+        pos = snakes[pos]
+    return pos if pos <= 30 else pos - dice
+
+def play_game():
+    p1 = p2 = 0
+    while True:
+        input("Player 1 turn. Press Enter.")
+        p1 = move("Player 1", p1)
+        print(f"Player 1 at {p1}")
+        if p1 == 30:
+            print("Player 1 wins!")
+            break
+
+        input("Player 2 turn. Press Enter.")
+        p2 = move("Player 2", p2)
+        print(f"Player 2 at {p2}")
+        if p2 == 30:
+            print("Player 2 wins!")
+            break
+
+if __name__ == "__main__":
+    play_game()
